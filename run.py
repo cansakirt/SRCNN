@@ -1,5 +1,6 @@
 import argparse
 
+import os
 import numpy as np
 import torch
 import torchvision.transforms as transforms
@@ -10,6 +11,7 @@ parser.add_argument('--model', type=str, required=True)
 parser.add_argument('--image', type=str, required=True)
 parser.add_argument('--zoom_factor', type=int, required=True)
 parser.add_argument('--cuda', action='store_true')
+parser.add_argument('--output_path', type=str, required=True)
 args = parser.parse_args()
 
 img = Image.open(args.image).convert('YCbCr')
@@ -33,4 +35,6 @@ out_img_y = Image.fromarray(np.uint8(out_img_y[0]), mode='L')
 
 out_img = Image.merge('YCbCr', [out_img_y, cb, cr]).convert('RGB')  # we merge the output of our network with the upscaled Cb and Cr from before
                                                                     # before converting the result in RGB
-out_img.save(f"zoomed_{args.image}")
+  
+output_file = os.path.join(output_path, f'zoomed_{args.image}')
+out_img.save(output_file)
