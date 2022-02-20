@@ -36,5 +36,5 @@ out_img_y = Image.fromarray(np.uint8(out_img_y[0]), mode='L')
 out_img = Image.merge('YCbCr', [out_img_y, cb, cr]).convert('RGB')  # we merge the output of our network with the upscaled Cb and Cr from before
                                                                     # before converting the result in RGB
   
-output_file = os.path.join(output_path, f'zoomed_{args.image}')
+output_file = os.path.join(args.output_path, f'zoomed_{args.image}')
 out_img.save(output_file)
